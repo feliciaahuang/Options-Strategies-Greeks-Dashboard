@@ -97,7 +97,7 @@ def get_volatility_S0(tckr, trading_days=252):
     vol_daily = price_df["Log return"].std()
     vol_annual = vol_daily * np.sqrt(252)
 
-    return price_df, S0, vol_daily, vol_annual
+    return price_df, round(S0,2), vol_daily, vol_annual
 #%%
 price_df, S0, vol_daily, vol_annual = get_volatility_S0(tckr, trading_days=252)
 
@@ -134,12 +134,13 @@ def BSM_price(S0, K, T, r, sigma, option_type='call'):
     #turns option type value to lowercase
     option_type = option_type.lower()
     
-    if option_type == 'call':
-        return S0 * norm.cdf(d1) - K * np.exp(-r*T) * norm.cdf(d2)
+     if option_type == 'call':
+        value = S0 * norm.cdf(d1) - K * np.exp(-r*T) * norm.cdf(d2)
+        return round(value,2)
     
     elif option_type == 'put':
-        
-        return K * np.exp(-r*T) * norm.cdf(-d2) - S0 * norm.cdf(-d1)
+        value = K * np.exp(-r*T) * norm.cdf(-d2) - S0 * norm.cdf(-d1)
+        return round(value,2)
     #executed if input is not expected must be call or put
     else:
         raise ValueError("option_type must be 'call' or 'put'")
@@ -213,7 +214,7 @@ def binomialpricing(S0, K, T, r, sigma, node, option_type = 'call'):
                                     (1-p)*pricetree[time+1, move]) *exp(-r*dt)
     trees["payoff"] = payofftree
     trees["price"] = pricetree
-    return pricetree[0,0]
+    return round(pricetree[0,0],2)
 #%%
 
 #------------------------------------------------------------------------------
@@ -228,7 +229,19 @@ T= 1
 setting = 'call' # set the optiontype (between call or put)
 
 #checking the values are consistent
-print(S0,'\n',K,'\n',T,'\n',r,'\n',sigma,'\n',node)
+print( f' S0                      :{S0}',
+      '\n',
+      f'K                       :{K}',
+      '\n',
+      f'T to Maturity (years)   :{T}',
+      '\n',
+      f'interest rate           :{r}',
+      '\n',
+      f'volatility              :{sigma} ',
+      '\n',
+      f'No of Time steps        :{node}'
+      )
+
 #------------------------------------------------------------------------------
 
 #%%
@@ -243,9 +256,9 @@ BSMprice = BSM_price(S0, K, T, r, sigma, option_type = setting)
 payofftree = trees['payoff']
 pricetree = trees['price']
 
-print(Binomial_price) 
+print(f'Binomial option price :{Binomial_price}') 
 
-print(BSMprice)
+print(f'BSM option price : {BSMprice}')
 
 #test set 1
 #413.71837760012033 (node=1000) , Binomial price
@@ -381,7 +394,19 @@ Through the plot we can observe that the value of a call and a put decays as it 
 #%%
 
 #checking the values are consistent
-print(S0,'\n',K,'\n',T,'\n',r,'\n',sigma,'\n',node)
+print( f' S0                      :{S0}',
+      '\n',
+      f'K                       :{K}',
+      '\n',
+      f'T to Maturity (years)   :{T}',
+      '\n',
+      f'interest rate           :{r}',
+      '\n',
+      f'volatility              :{sigma} ',
+      '\n',
+      f'No of Time steps        :{node}'
+      )
+
 
 #%%
 """
@@ -432,7 +457,19 @@ Greeks are a set of measures that describe how the price of an option changes ag
 #%%
 
 #checking the values are consistent
-print(S0,'\n',K,'\n',T,'\n',r,'\n',sigma,'\n',node)
+print( f' S0                      :{S0}',
+      '\n',
+      f'K                       :{K}',
+      '\n',
+      f'T to Maturity (years)   :{T}',
+      '\n',
+      f'interest rate           :{r}',
+      '\n',
+      f'volatility              :{sigma} ',
+      '\n',
+      f'No of Time steps        :{node}'
+      )
+
 
 #%%
 
@@ -1018,7 +1055,19 @@ plt.show()
 #%%
 
 #checking the variables are consistent
-print(S0,'\n',K,'\n',T,'\n',r,'\n',sigma,'\n',node)
+print( f' S0                      :{S0}',
+      '\n',
+      f'K                       :{K}',
+      '\n',
+      f'T to Maturity (years)   :{T}',
+      '\n',
+      f'interest rate           :{r}',
+      '\n',
+      f'volatility              :{sigma} ',
+      '\n',
+      f'No of Time steps        :{node}'
+      )
+
 
 #%%
 """
