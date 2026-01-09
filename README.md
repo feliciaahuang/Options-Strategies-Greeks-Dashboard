@@ -1,9 +1,3 @@
-Below is a **technical and professional** README.md tailored to your project name:
-**Option Pricing and Greeks Visualization Dashboard**
-
-You can copy and paste this directly into your GitHub repository.
-
----
 
 # Option Pricing and Greeks Visualization Dashboard
 
